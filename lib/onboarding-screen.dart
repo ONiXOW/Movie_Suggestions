@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:movie_suggestions/onboard%20screen/fifth-screen.dart';
-import 'package:movie_suggestions/onboard%20screen/fourth-screen.dart';
-import 'package:movie_suggestions/onboard%20screen/intro_screen.dart';
-import 'package:movie_suggestions/onboard%20screen/second-screen.dart';
-import 'package:movie_suggestions/onboard%20screen/third-screen.dart';
-import 'package:movie_suggestions/onboard%20screen/last-screen.dart';
+import 'package:movie_suggestions/ui/onboard%20screen/fifth-screen.dart';
+import 'package:movie_suggestions/ui/onboard%20screen/fourth-screen.dart';
+import 'package:movie_suggestions/ui/onboard%20screen/intro_screen.dart';
+import 'package:movie_suggestions/ui/onboard%20screen/last-screen.dart';
+import 'package:movie_suggestions/ui/onboard%20screen/third-screen.dart';
+
+import 'ui/onboard screen/second-screen.dart';
 
 class OnboardingScreens extends StatefulWidget {
+  static const String routeName='onboarding_screen';
   @override
+
   _OnboardingScreensState createState() => _OnboardingScreensState();
 }
 
 class _OnboardingScreensState extends State<OnboardingScreens> {
   final PageController _pageController = PageController(initialPage: 0);
   int _currentIndex = 0;
+
 
   final List<Widget> _pages = [
     FirstScreen(),

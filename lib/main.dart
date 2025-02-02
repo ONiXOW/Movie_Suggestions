@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_suggestions/onboarding-screen.dart';
+import 'package:movie_suggestions/ui/screens/login_screen/login_screen.dart';
+import 'package:movie_suggestions/ui/screens/register_screen/register_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -23,7 +25,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:  OnboardingScreens(),
+      initialRoute:RegisterScreen.routeName ,
+      routes: {
+        OnboardingScreens.routeName:(context)=>OnboardingScreens(),
+        LoginScreen.routeName:(context)=>LoginScreen(),
+        RegisterScreen.routeName:(context)=>RegisterScreen(),
+      },
+
     );
   }
 }
