@@ -10,6 +10,7 @@ class TextFieldWidget extends StatelessWidget {
 
   Color? color;
   String hintText;
+  Key ?key;
   String ?label;
   TextStyle? hintStyle;
   TextStyle? labelStyle;
@@ -21,7 +22,7 @@ class TextFieldWidget extends StatelessWidget {
   TextEditingController?controller;
   TextInputType?keyBoardType;
   TextFieldWidget({this.controller,this.validator,this.color,required this.hintText,this.label,this.hintStyle,this.labelStyle,this.obscureText=false,
-    this.prefixIcon,this.sufixIcon,this.maxLines,this.keyBoardType=TextInputType.text});
+    this.prefixIcon,this.sufixIcon,this.maxLines,this.key,this.keyBoardType=TextInputType.text});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class TextFieldWidget extends StatelessWidget {
         validator: validator,
         obscureText: obscureText,
 
-
+key: key,
         maxLines: maxLines??1,
         cursorColor: AppColors.yellowColor,
         style: AppStyles.medium16White,

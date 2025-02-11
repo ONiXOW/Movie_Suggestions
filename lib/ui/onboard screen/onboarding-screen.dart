@@ -3,9 +3,9 @@ import 'package:movie_suggestions/ui/onboard%20screen/fifth-screen.dart';
 import 'package:movie_suggestions/ui/onboard%20screen/fourth-screen.dart';
 import 'package:movie_suggestions/ui/onboard%20screen/intro_screen.dart';
 import 'package:movie_suggestions/ui/onboard%20screen/last-screen.dart';
+import 'package:movie_suggestions/ui/onboard%20screen/second-screen.dart';
 import 'package:movie_suggestions/ui/onboard%20screen/third-screen.dart';
 
-import 'ui/onboard screen/second-screen.dart';
 
 class OnboardingScreens extends StatefulWidget {
   static const String routeName='onboarding_screen';
