@@ -1,4 +1,4 @@
 class EndPoints {
-  static const String login = 'auth/login';
-  static const String register = 'auth/register';
+  static const String login = 'https://route-movie-apis.vercel.app/auth/login';
+  static const String register = 'https://route-movie-apis.vercel.app/auth/register';
 }
