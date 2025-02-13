@@ -66,6 +66,7 @@ dependencies:
   get_it_injector:
   build_runner:
   injectable_generator:
+  connectivity_plus:
   shared_preferences: ^2.5.1
 flutter_native_splash:
   color: "#121312" # Ensure the color is in proper hex format

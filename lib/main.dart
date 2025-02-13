@@ -9,7 +9,7 @@ import 'package:movie_suggestions/ui/screens/register_screen/register_screen.dar
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants/constants.dart';
-import 'ui/screens/register_screen/auth_cubit/auth_cubit.dart';
+
 
 void main() async {
   configureDependencies();
@@ -31,20 +31,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => AuthCubit())],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: token != null && token != ''
-            ? HomeScreen.routeName
-            : LoginScreen.routeName,
-        routes: {
-          OnboardingScreens.routeName: (context) => OnboardingScreens(),
-          LoginScreen.routeName: (context) => LoginScreen(),
-          RegisterScreen.routeName: (context) => RegisterScreen(),
-          HomeScreen.routeName: (context) => HomeScreen(),
-        },
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: token != null && token != ''
+          ? HomeScreen.routeName
+          : LoginScreen.routeName,
+      routes: {
+        OnboardingScreens.routeName: (context) => OnboardingScreens(),
+        LoginScreen.routeName: (context) => LoginScreen(),
+        RegisterScreen.routeName: (context) => RegisterScreen(),
+        HomeScreen.routeName: (context) => HomeScreen(),
+      },
     );
   }
 }
