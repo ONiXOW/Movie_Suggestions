@@ -17,6 +17,14 @@ class AssetsManager {
   static const String avatar7= 'assets/images/avatar7.png';
   static const String avatar8= 'assets/images/avatar8.png';
   static const String avatar9= 'assets/images/avatar9.png';
+  static const String iconHomeSelected='assets/images/iconHomeSelected.png';
+  static const String iconHome='assets/images/iconHome.png';
+  static const String iconCategorySelected='assets/images/iconCategorySelected.png';
+  static const String iconCategory='assets/images/iconCategory.png';
+  static const String iconSearchSelected='assets/images/iconSearchSelected.png';
+  static const String iconSearch='assets/images/iconSearch.png';
+  static const String iconProfileSelected='assets/images/iconProfileSelected.png';
+  static const String iconProfile='assets/images/iconProfile.png';
 
 
 

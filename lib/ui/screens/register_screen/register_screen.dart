@@ -2,8 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:movie_suggestions/ui/screens/register_screen/auth_cubit/auth_cubit.dart';
-import 'package:movie_suggestions/ui/screens/register_screen/auth_cubit/auth_state.dart';
+import 'package:movie_suggestions/ui/screens/login_screen/auth/di.dart';
+import 'package:movie_suggestions/ui/screens/register_screen/auth/register_state.dart';
+import 'package:movie_suggestions/ui/screens/register_screen/auth/register_view_model.dart';
+
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_styles.dart';
 import '../../../../utils/assets_manager.dart';
@@ -21,13 +23,14 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  AuthCubit authCubit = AuthCubit();
+RegisterViewModel registerViewModel=getIt<RegisterViewModel>();
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return BlocListener<AuthCubit, AuthState>(
+    return BlocListener<RegisterViewModel, RegisterState>(
+      bloc: registerViewModel,
         listener: (context, state) {
           if (state is RegisterSuccessState) {
             Fluttertoast.showToast(
@@ -41,7 +44,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             // Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
           } else if (state is RegisterFailedState) {
             Fluttertoast.showToast(
-                msg: "Register Field",
+                msg: state.message,
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIosWeb: 1,
@@ -71,7 +74,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           body: SingleChildScrollView(
             child: Form(
-              key: authCubit.formKey,
+              key: registerViewModel.formKey,
               child: Column(
                 children: [
                   SizedBox(height: height * 0.02),
@@ -80,11 +83,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children:
-                          List.generate(authCubit.avatarList.length, (index) {
+                          List.generate(registerViewModel.avatarList.length, (index) {
                         return GestureDetector(
                           onTap: () {
                             setState(() {
-                              authCubit.selectedIndex = index;
+                              registerViewModel.selectedIndex = index;
                             });
                           },
                           child: Container(
@@ -93,18 +96,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: authCubit.selectedIndex == index
+                                color: registerViewModel.selectedIndex == index
                                     ? Colors.yellow
                                     : Colors.transparent,
                                 width: 2,
                               ),
                             ),
                             child: CircleAvatar(
-                              radius: authCubit.selectedIndex == index
+                              radius: registerViewModel.selectedIndex == index
                                   ? width * 0.1
                                   : height * 0.06,
                               backgroundImage:
-                                  AssetImage(authCubit.avatarList[index]),
+                                  AssetImage(registerViewModel.avatarList[index]),
                             ),
                           ),
                         );
@@ -116,7 +119,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   TextFieldWidget(
                     hintText: 'Name',
-                    controller: authCubit.nameController,
+                    controller: registerViewModel.nameController,
                     validator: (name) {
                       if (name == null || name.trim().isEmpty) {
                         return "Please Enter name";
@@ -132,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   TextFieldWidget(
                     hintText: 'Email',
-                    controller: authCubit.emailController,
+                    controller:registerViewModel.emailController,
                     validator: (text) {
                       if (text == null || text.trim().isEmpty) {
                         return "Please Enter Email";
@@ -151,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   TextFieldWidget(
                     hintText: 'Password',
-                    controller: authCubit.passwordController,
+                    controller:registerViewModel.passwordController,
                     validator: (password) {
                       if (password == null || password.trim().isEmpty) {
                         return "Please Enter Password";
@@ -165,10 +168,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: AppColors.whiteColor,
                       iconSize: 24,
                       onPressed: () {
-                        authCubit.isObscured = !authCubit.isObscured;
+                        registerViewModel.isObscured = !registerViewModel.isObscured;
                         setState(() {});
                       },
-                      icon: Icon(authCubit.isObscured
+                      icon: Icon(registerViewModel.isObscured
                           ? Icons.visibility
                           : Icons.visibility_off),
                     ),
@@ -179,7 +182,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   TextFieldWidget(
                       hintText: 'Confirm Password',
-                      controller: authCubit.confirmPasswordController,
+                      controller: registerViewModel.confirmPasswordController,
                       obscureText: false,
                       validator: (confirmPassword) {
                         if (confirmPassword == null ||
@@ -190,7 +193,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           return "Password Should be at Least 6 chars";
                         }
                         if (confirmPassword !=
-                            authCubit.passwordController.text) {
+                           registerViewModel.passwordController.text) {
                           return "Confirm Password doesn’t Match Password";
                         }
                       },
@@ -199,10 +202,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         color: AppColors.whiteColor,
                         iconSize: 24,
                         onPressed: () {
-                          authCubit.isObscured = !authCubit.isObscured;
+                         registerViewModel.isObscured = !registerViewModel.isObscured;
                           setState(() {});
                         },
-                        icon: Icon(authCubit.isObscured
+                        icon: Icon(registerViewModel.isObscured
                             ? Icons.visibility
                             : Icons.visibility_off),
                       )),
@@ -211,7 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   TextFieldWidget(
                     hintText: 'Phone Number',
-                    controller: authCubit.phoneController,
+                    controller: registerViewModel.phoneController,
                     validator: (phone) {
                       if (phone == null || phone.trim().isEmpty) {
                         return "Please Enter Phone Number ";
@@ -226,12 +229,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   CustomeElevatedButton(
                       text: 'Create Account',
                       onButton: () {
-                        //todo: Navigation to Login Screen ///////l///////////////////
+                        //todo: Navigation to Login Screen
 
-                        if (authCubit.formKey.currentState!.validate()) {
-                          authCubit.register();
-                        }
-                      }),
+                        registerViewModel.register();
+                      }
+                      ),
                   Center(
                     child: Text.rich(TextSpan(children: [
                       TextSpan(

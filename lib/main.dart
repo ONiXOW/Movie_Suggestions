@@ -6,10 +6,14 @@ import 'package:movie_suggestions/ui/screens/home_screen/home_screen.dart';
 import 'package:movie_suggestions/ui/screens/login_screen/auth/di.dart';
 import 'package:movie_suggestions/ui/screens/login_screen/login_screen.dart';
 import 'package:movie_suggestions/ui/screens/register_screen/register_screen.dart';
+import 'package:movie_suggestions/ui/tabs/category_tab/category_tab.dart';
+import 'package:movie_suggestions/ui/tabs/home_tab/home_tab.dart';
+import 'package:movie_suggestions/ui/tabs/profile_tab/profile_tab.dart';
+import 'package:movie_suggestions/ui/tabs/seearch_tab/search_tab.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants/constants.dart';
-import 'ui/screens/register_screen/auth_cubit/auth_cubit.dart';
+
 
 void main() async {
   configureDependencies();
@@ -31,20 +35,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => AuthCubit())],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: token != null && token != ''
-            ? HomeScreen.routeName
-            : LoginScreen.routeName,
-        routes: {
-          OnboardingScreens.routeName: (context) => OnboardingScreens(),
-          LoginScreen.routeName: (context) => LoginScreen(),
-          RegisterScreen.routeName: (context) => RegisterScreen(),
-          HomeScreen.routeName: (context) => HomeScreen(),
-        },
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: HomeScreen.routeName,
+      routes: {
+        OnboardingScreens.routeName: (context) => OnboardingScreens(),
+        LoginScreen.routeName: (context) => LoginScreen(),
+        RegisterScreen.routeName: (context) => RegisterScreen(),
+        HomeScreen.routeName: (context) => HomeScreen(),
+        HomeTab.routeName:(context)=>HomeTab(),
+        CategoryTab.routeName:(context)=>CategoryTab(),
+        SearchTab.routeName:(context)=>SearchTab(),
+        ProfileTab.routeName:(context)=>ProfileTab(),
+      },
     );
   }
 }

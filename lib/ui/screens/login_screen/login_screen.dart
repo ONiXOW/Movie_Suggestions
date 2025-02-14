@@ -15,8 +15,7 @@ import 'package:movie_suggestions/ui/screens/login_screen/auth/auth_repository_i
 import 'package:movie_suggestions/ui/screens/login_screen/auth/di.dart';
 import 'package:movie_suggestions/ui/screens/login_screen/auth/login_use_case.dart';
 import 'package:movie_suggestions/ui/screens/login_screen/auth/login_view_model.dart';
-import 'package:movie_suggestions/ui/screens/register_screen/auth_cubit/auth_cubit.dart';
-import 'package:movie_suggestions/ui/screens/register_screen/auth_cubit/auth_state.dart';
+
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_styles.dart';
 import '../../../../utils/assets_manager.dart';
