@@ -7,80 +7,95 @@ import 'package:movie_suggestions/utils/app_colors.dart';
 import 'package:movie_suggestions/utils/assets_manager.dart';
 
 class HomeScreen extends StatefulWidget {
-static const String routeName='Home_Screen';
+  static const String routeName = 'Home_Screen';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-  int selectedIndex=0;
-List<Widget>tabs=[
-  HomeTab(),
-  SearchTab(),
-  CategoryTab(),
-  ProfileTab(),
-];
+  int selectedIndex = 0;
+  List<Widget> tabs = [
+    HomeTab(),
+    SearchTab(),
+    CategoryTab(),
+    ProfileTab(),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      bottomNavigationBar:Theme(data:Theme.of(context).copyWith(canvasColor: AppColors.greyColor) ,
-          child: BottomAppBar(
-elevation: 0,
-        padding: EdgeInsets.zero,
-        notchMargin: 2,
+      backgroundColor: AppColors.blackColor,
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Theme(
+          data: Theme.of(context).copyWith(canvasColor: AppColors.greyColor),
 
-        shape: CircularNotchedRectangle() ,
-      child: BottomNavigationBar(
+          child: Expanded(
+            child: BottomAppBar(
+              shadowColor: AppColors.transparentColor,
+              color: AppColors.transparentColor,
 
-         currentIndex: selectedIndex,
-        onTap: (index){
-           selectedIndex=index;
-           setState(() {});
-        },
-        selectedItemColor: AppColors.primaryColor,
-     enableFeedback: true,
-        backgroundColor: AppColors.blackColor,
-        items: [
-      buildBottomNavigationBarItem(
-      icon: AssetsManager.iconHome,
-      iconSelected: AssetsManager.iconHomeSelected,
-      index: 0,
+              padding: EdgeInsets.symmetric(
+                horizontal: width*0.000009,
+                vertical: height*0.000005
+              ),
+              shape: CircularNotchedRectangle(),
+              notchMargin: 4,
+              child: BottomNavigationBar(
+                currentIndex: selectedIndex,
+                onTap: (index) {
+                  setState(() {selectedIndex = index;});
+                },
+                selectedItemColor: AppColors.primaryColor,
+                enableFeedback: true,
 
-      ),
-      buildBottomNavigationBarItem(
-      icon: AssetsManager.iconSearch,
-      iconSelected: AssetsManager.iconSearchSelected,
-      index: 1,
-      ),
-      buildBottomNavigationBarItem(
-      icon: AssetsManager.iconCategory,
-      iconSelected: AssetsManager.iconCategorySelected,
-      index: 2,
-      ),
-      buildBottomNavigationBarItem(
-      icon: AssetsManager.iconProfile,
-      iconSelected: AssetsManager.iconProfileSelected,
-      index: 3,
-      )
-        ],
+                items: [
+                  buildBottomNavigationBarItem(
+                    icon: AssetsManager.iconHome,
+                    iconSelected: AssetsManager.iconHomeSelected,
+                    index: 0,
+                  ),
 
+                  buildBottomNavigationBarItem(
+                    icon: AssetsManager.iconSearch,
+                    iconSelected: AssetsManager.iconSearchSelected,
+                    index: 1,
+                  ),
+                  buildBottomNavigationBarItem(
+                    icon: AssetsManager.iconCategory,
+                    iconSelected: AssetsManager.iconCategorySelected,
+                    index: 2,
+                  ),
+                  buildBottomNavigationBarItem(
+                    icon: AssetsManager.iconProfile,
+                    iconSelected: AssetsManager.iconProfileSelected,
+                    index: 3,
+                  ),
+
+                ],
+
+              ),
+            ),
+          ),
+        ),
       ),
 
-      ),
-      ),
       body: tabs[selectedIndex],
     );
   }
-BottomNavigationBarItem buildBottomNavigationBarItem({
-  required String icon, required iconSelected, required index, label})
 
-{
-  return BottomNavigationBarItem(
-      icon:ImageIcon(AssetImage(icon)),
-    label: label??"");
+  BottomNavigationBarItem buildBottomNavigationBarItem({
+    required String icon,
+    required String iconSelected,
+    required int index,
+    String? label,
+  }) {
+    return BottomNavigationBarItem(
+      icon: ImageIcon(AssetImage(icon)),
+      label: label ?? "",
+    );
+  }
 }
-}
-

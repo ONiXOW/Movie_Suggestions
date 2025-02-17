@@ -25,6 +25,10 @@ class AssetsManager {
   static const String iconSearch='assets/images/iconSearch.png';
   static const String iconProfileSelected='assets/images/iconProfileSelected.png';
   static const String iconProfile='assets/images/iconProfile.png';
+  static const String availableNow='assets/images/Available Now.png';
+  static const String watchNow='assets/images/Watch Now.png';
+  static const String starIcon='assets/images/starIcon.png';
+
 
 
 

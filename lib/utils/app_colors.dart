@@ -13,6 +13,7 @@ static const Color greenColor=Color(0xff57AA53);
 static const Color redColor=Color(0xffE82626);
 static const Color backgroundColor=Color(0xff1E1E1E);
 static const Color primaryColor=Color(0xffF6BD00);
+static const Color ratingColor=Color(0x86121312);
 static const Color transparentColor=Colors.transparent;
 
 

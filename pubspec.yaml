@@ -59,6 +59,10 @@ dependencies:
   get_it: ^8.0.3
   injectable: ^2.5.0
   dependency_injection_flutter:
+  flutter_snake_navigationbar: ^0.6.1
+  cached_network_image:
+  carousel_slider: ^5.0.0
+  fan_carousel_image_slider: ^1.3.0
 
 
 
