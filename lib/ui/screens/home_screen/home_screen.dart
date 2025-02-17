@@ -33,51 +33,51 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Theme(
           data: Theme.of(context).copyWith(canvasColor: AppColors.greyColor),
 
-          child: Expanded(
-            child: BottomAppBar(
-              shadowColor: AppColors.transparentColor,
-              color: AppColors.transparentColor,
+          child: BottomAppBar(
+            height: height*0.06,
+            shadowColor: AppColors.transparentColor,
+            color: AppColors.transparentColor,
 
-              padding: EdgeInsets.symmetric(
-                horizontal: width*0.000009,
-                vertical: height*0.000005
-              ),
-              shape: CircularNotchedRectangle(),
-              notchMargin: 4,
-              child: BottomNavigationBar(
-                currentIndex: selectedIndex,
-                onTap: (index) {
-                  setState(() {selectedIndex = index;});
-                },
-                selectedItemColor: AppColors.primaryColor,
-                enableFeedback: true,
+            padding: EdgeInsets.symmetric(
+              horizontal: width*0.0009,
+              vertical: height*0.0004
+            ),
 
-                items: [
-                  buildBottomNavigationBarItem(
-                    icon: AssetsManager.iconHome,
-                    iconSelected: AssetsManager.iconHomeSelected,
-                    index: 0,
-                  ),
+            shape: CircularNotchedRectangle(),
+            notchMargin: 6,
+            child: BottomNavigationBar(
+              currentIndex: selectedIndex,
+              onTap: (index) {
+                setState(() {selectedIndex = index;});
+              },
+              selectedItemColor: AppColors.primaryColor,
+              enableFeedback: true,
 
-                  buildBottomNavigationBarItem(
-                    icon: AssetsManager.iconSearch,
-                    iconSelected: AssetsManager.iconSearchSelected,
-                    index: 1,
-                  ),
-                  buildBottomNavigationBarItem(
-                    icon: AssetsManager.iconCategory,
-                    iconSelected: AssetsManager.iconCategorySelected,
-                    index: 2,
-                  ),
-                  buildBottomNavigationBarItem(
-                    icon: AssetsManager.iconProfile,
-                    iconSelected: AssetsManager.iconProfileSelected,
-                    index: 3,
-                  ),
+              items: [
+                buildBottomNavigationBarItem(
+                  icon: AssetsManager.iconHome,
+                  iconSelected: AssetsManager.iconHomeSelected,
+                  index: 0,
+                ),
 
-                ],
+                buildBottomNavigationBarItem(
+                  icon: AssetsManager.iconSearch,
+                  iconSelected: AssetsManager.iconSearchSelected,
+                  index: 1,
+                ),
+                buildBottomNavigationBarItem(
+                  icon: AssetsManager.iconCategory,
+                  iconSelected: AssetsManager.iconCategorySelected,
+                  index: 2,
+                ),
+                buildBottomNavigationBarItem(
+                  icon: AssetsManager.iconProfile,
+                  iconSelected: AssetsManager.iconProfileSelected,
+                  index: 3,
+                ),
 
-              ),
+              ],
+
             ),
           ),
         ),
