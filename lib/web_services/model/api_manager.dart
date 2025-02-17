@@ -1,44 +1,35 @@
-//
-// import 'package:dartz/dartz.dart';
-// import 'package:dio/dio.dart';
-// import 'package:movie_suggestions/error/failures.dart';
-// import 'package:movie_suggestions/web_services/model/RegisterModel.dart';
-// import 'package:movie_suggestions/web_services/model/RegisterResponse.dart';
-// import 'package:movie_suggestions/web_services/model/endPoints.dart';
-//
-// class ApiManager {
-//   Dio dio=Dio();
-//
-//   Future<Either<Failures,RegisterResponse>>register({
-//     required String name,
-//     required String phone,
-//     required String email,
-//     required String password,
-//     required String rePassword,
-//     required int avaterId,
-// })
-//  async {
-//
-// var response=await dio.post(EndPoints.register,
-//
-//     data: {
-//       "name":name,
-//       "email":email,
-//       "password":password,
-//       "confirmPassword":rePassword,
-//       "phone":phone,
-//       "avaterId":avaterId,
-// }
-// );
-//  var registerResponse=RegisterResponse.fromJson(response.data);
-//
-//  if(response.statusCode!>=200&&response.statusCode!<300){
-//    return Right(registerResponse);
-//  }else{
-//    return Left(ServerError(errorMessage: registerResponse.message!));
-//  }
-//
-//   }
-//
-//
-// }
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
+import 'MoviesResponseModel.dart';
+import 'endPoints.dart';
+
+class ApiManager {
+  static Future<MoviesResponseModel> getMovies() async {
+    try {
+      Uri url = Uri.parse(EndPoints.moviesList);
+
+      // ✅ طباعة الرابط للتأكد منه
+      debugPrint("Fetching data from: $url");
+
+      var response = await http.get(url).timeout(Duration(seconds: 10));
+
+      // ✅ طباعة كود الاستجابة
+      debugPrint("Response Code: ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+
+        // ✅ طباعة بيانات الـ API
+        debugPrint("API Response: $jsonResponse");
+
+        return MoviesResponseModel.fromJson(jsonResponse);
+      } else {
+        throw Exception("Failed to load movies, Status Code: ${response.statusCode}");
+      }
+    } catch (e) {
+      debugPrint("API Error: $e");
+      throw Exception("Error fetching movies: $e");
+    }
+  }
+}
