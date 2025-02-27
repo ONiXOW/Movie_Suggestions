@@ -1,8 +1,10 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/app_colors.dart';
-import '../utils/assets_manager.dart';
+import '../core/utils/app_colors.dart';
+import '../core/utils/assets_manager.dart';
+
+
 
 class AnimatedToggle extends StatefulWidget {
 
