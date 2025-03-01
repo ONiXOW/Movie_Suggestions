@@ -1,102 +1,101 @@
 import 'package:flutter/material.dart';
-import 'package:movie_suggestions/ui/tabs/category_tab/category_tab.dart';
-import 'package:movie_suggestions/ui/tabs/home_tab/home_tab.dart';
-import 'package:movie_suggestions/ui/tabs/profile_tab/profile_tab.dart';
-import 'package:movie_suggestions/ui/tabs/seearch_tab/search_tab.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_suggestions/core/utils/assets_manager.dart';
 
 import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/assets_manager.dart';
+import 'cubit/home_states.dart';
+import 'cubit/home_view_model.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const String routeName = 'Home_Screen';
 
+  static const String routeName="HomeScreen";
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int selectedIndex = 0;
-  List<Widget> tabs = [
-    HomeTab(),
-    SearchTab(),
-    CategoryTab(),
-    ProfileTab(),
-  ];
+  HomeViewModel viewModel = HomeViewModel();
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: AppColors.blackColor,
-      bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Theme(
-          data: Theme.of(context).copyWith(canvasColor: AppColors.greyColor),
+    var width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    var height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    return BlocBuilder<HomeViewModel, HomeStates>(
+      bloc: viewModel,
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor:AppColors.backgroundColor,
 
-          child: BottomAppBar(
-            height: height*0.06,
-            shadowColor: AppColors.transparentColor,
-            color: AppColors.transparentColor,
+          body: viewModel.bodyList[viewModel.selectedIndex],
 
-            padding: EdgeInsets.symmetric(
-              horizontal: width*0.0009,
-              vertical: height*0.0004
+          bottomNavigationBar: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
             ),
+            child: Theme(
+              data: Theme.of(context)
+                  .copyWith(canvasColor: AppColors.greyColor),
+              child: BottomNavigationBar(
 
-            shape: CircularNotchedRectangle(),
-            notchMargin: 6,
-            child: BottomNavigationBar(
-              currentIndex: selectedIndex,
-              onTap: (index) {
-                setState(() {selectedIndex = index;});
-              },
-              selectedItemColor: AppColors.primaryColor,
-              enableFeedback: true,
+                type: BottomNavigationBarType.fixed,
+                elevation: 0,
+                currentIndex: viewModel.selectedIndex,
+                onTap: viewModel.bottomNavOnTap,
+                iconSize: 24,
 
-              items: [
-                buildBottomNavigationBarItem(
-                  icon: AssetsManager.iconHome,
-                  iconSelected: AssetsManager.iconHomeSelected,
-                  index: 0,
-                ),
 
-                buildBottomNavigationBarItem(
-                  icon: AssetsManager.iconSearch,
-                  iconSelected: AssetsManager.iconSearchSelected,
-                  index: 1,
-                ),
-                buildBottomNavigationBarItem(
-                  icon: AssetsManager.iconCategory,
-                  iconSelected: AssetsManager.iconCategorySelected,
-                  index: 2,
-                ),
-                buildBottomNavigationBarItem(
-                  icon: AssetsManager.iconProfile,
-                  iconSelected: AssetsManager.iconProfileSelected,
-                  index: 3,
-                ),
+                // Adjust the icon size
+                items: [
+                  _bottomNavBarItemBuilder(
+                    isSelected: viewModel.selectedIndex == 0,
+                      selectedIcon: AssetsManager.iconHomeSelected,
+                    unSelectedIcon: AssetsManager.iconHome
 
-              ],
-
+                  ),
+                  _bottomNavBarItemBuilder(
+                    isSelected: viewModel.selectedIndex == 1,
+               selectedIcon:AssetsManager.iconSearchSelected,
+                unSelectedIcon:AssetsManager.iconSearch,
+                  ),
+                  _bottomNavBarItemBuilder(
+                    isSelected: viewModel.selectedIndex == 2,
+                selectedIcon: AssetsManager.iconCategorySelected,
+                unSelectedIcon: AssetsManager.iconCategory,
+                  ),
+                  _bottomNavBarItemBuilder(
+                    isSelected: viewModel.selectedIndex == 3,
+                  selectedIcon: AssetsManager.iconProfileSelected,
+                    unSelectedIcon: AssetsManager.iconProfile,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ),
-
-      body: tabs[selectedIndex],
+        );
+      },
     );
   }
 
-  BottomNavigationBarItem buildBottomNavigationBarItem({
-    required String icon,
-    required String iconSelected,
-    required int index,
-    String? label,
+  BottomNavigationBarItem _bottomNavBarItemBuilder({required bool isSelected,
+    required String selectedIcon,
+    required String unSelectedIcon
   }) {
     return BottomNavigationBarItem(
-      icon: ImageIcon(AssetImage(icon)),
-      label: label ?? "",
+      icon: CircleAvatar(
+        backgroundColor: AppColors.transparentColor,
+        radius: 25,
+        child: Image.asset(
+          isSelected?selectedIcon:unSelectedIcon,
+        ),
+      ),
+      label: "",
     );
   }
 }

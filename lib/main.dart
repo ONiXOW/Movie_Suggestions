@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_suggestions/ui/onboard%20screen/onboarding-screen.dart';
 import 'package:movie_suggestions/ui/screens/home_screen/home_screen.dart';
 import 'package:movie_suggestions/ui/screens/login_screen/login_screen.dart';
@@ -31,37 +32,28 @@ class MyApp extends StatelessWidget {
   MyApp({required this.hasSeenOnboarding});
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute:RegisterScreen.routeName,
-      routes: {
-        OnboardingScreens.routeName: (context) => OnboardingScreens(),
-        LoginScreen.routeName: (context) => LoginScreen(),
-        RegisterScreen.routeName: (context) => RegisterScreen(),
-        HomeScreen.routeName: (context) => HomeScreen(),
-        CategoryTab.routeName:(context)=>CategoryTab(),
-        SearchTab.routeName:(context)=>SearchTab(),
-        ProfileTab.routeName:(context)=>ProfileTab(),
-      },
+    return ScreenUtilInit(
+      designSize: const Size(430, 932),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: HomeTab(),
+          routes: {
+            OnboardingScreens.routeName: (context) => OnboardingScreens(),
+            LoginScreen.routeName: (context) => LoginScreen(),
+            RegisterScreen.routeName: (context) => RegisterScreen(),
+            HomeScreen.routeName: (context) => HomeScreen(),
+            CategoryTab.routeName: (context) => CategoryTab(),
+            SearchTab.routeName: (context) => SearchTab(),
+            ProfileTab.routeName: (context) => ProfileTab(),
+            HomeTab.routeName: (context) => HomeTab(),
+          },
+        );
+      }
     );
   }
 }
